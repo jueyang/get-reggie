@@ -2,24 +2,25 @@
 
 1. Jeb Bush emails
 2. Flint water emails in the `/pdf` directory
+3. One batch of Hilary Clinton's emails
 
 ## Prep
 
 `make all`
 
-Once the script is finished you will find relavant text files in the `/txt` directory. It also installs the command line tool that we will be using: `ack`.
+Once the script is finished you will find relavant text files in the `ex2/` and `ex1/` directory. (`ex1/` is already in the repo.) The script also installs the command-line tool that we will be using: `ack`.
 
 ## Why using Regex in command line
 
-Your text editor (Sublime) can only handle files up to a certain size. Command Line is THE tool when you have a huge file (>~450,000 lines). While the focus of this session focuses on searching patterns with Regex in Command Line, Command Line's usefulness extends beyond that. For example, you will have no choice but using Command Line when formatting/investigating large csv's (like a year of NYC's 311 filings).
+Your text editor (Sublime) can only handle files up to a certain size. Command line is THE place to go when you have one huge file (>~450,000 lines) or more directories full of huge files.
 
 ## What is `ack`
 
-A command line file pattern searcher that is fast and optimized in a lot of ways. See [why ack](http://beyondgrep.com/why-ack/).
+A command-line file pattern searcher that is fast and optimized in a lot of ways. See [why ack](http://beyondgrep.com/why-ack/).
 
-## Command Line 102
+## Command line 102
 
-You already know a lot of command line utilities!
+You already know a lot of command-line utilities!
 
 ```
 cd
@@ -33,13 +34,15 @@ git
 
 ### New workflow addition
 
-Now it's time to add some new workflow to your command line: **redirection** and *pipe*. A redirection looks like this:
+Now it's time to add some new workflow to your command line: **redirection** and **pipe**.
+
+#### Redirection
 
 `command input > output`
 
 The `>` takes the input from the left and creates an output named after the right.
 
-And a pipe looks like this:
+#### Pipe
 
 `command input | another-command | yet-another-command`
 
@@ -67,11 +70,11 @@ This gives you a preview of the search in the command line. However, to store th
 
 ## Excercise 1: Jeb's emails
 
-1. Get the phone numbers.
+#### Get the phone numbers.
 
 `ack "your pattern" jeb-bush-telephone-number-challenge.txt > number-only.txt`
 
-2. Refine: how to get the numbers without the sentences around it?
+#### Refine: how to get the numbers without the sentences around it?
 
 Use the `-o` flag to specify that we don't want to print the entire line.
 
@@ -79,13 +82,13 @@ Use the `-o` flag to specify that we don't want to print the entire line.
 
 *Note*: if you redirect an input to an output and the output name already exists, you will overwrite the previous file. Make sure you name things with care and/or make copies of files important to you.
 
-3. Investigate more: how to get unique numbers?
+#### Investigate more: how to get unique numbers?
 
 `ack -o "your pattern" ex1/jeb-bush-telephone-number-challenge.txt | uniq -c > ex1/numbers-only-uniq.txt`
 
 ## Excercise 2: Flint emails
 
-1. Capture the `From:` field
+#### Capture the `From:` field
 
 ```
 ack -o '^From:+(.+)Date' ex2/snyder-flint-water-emails-demo.txt > ex2/flint-email-recipients.txt
@@ -95,7 +98,7 @@ ack -o '^From:+(.+)Date' ex2/snyder-flint-water-emails-demo.txt > ex2/flint-emai
 
 ## Exercise 3: Hilary emails
 
-1. Capture the `From:` field
+#### Capture the `From:` field
 
 What if the files come in 25 individual files instead of one?
 
@@ -111,7 +114,7 @@ What do you think the `-h` flag does? Try it without.
 
 **Note**: Notice that for this exercise we are searching a **whole** directory rather than a single file. Here, `ack` is no longer an alternative, but the only tool suitable for the job (since there are many files with a large total size.)
 
-2. Find SECRET or CONFIDENTIAL files
+#### Find SECRET or CONFIDENTIAL files
 
 Use `-l` flag to only print the filenames of matching files, instead of the matching text.
 
@@ -119,7 +122,7 @@ Use `-l` flag to only print the filenames of matching files, instead of the matc
 ack -l '\b(SECRET|CONFIDENTIAL)\b' ex3/
 ```
 
-3. Sort Hilary's email recipients by frequency
+#### Sort Hilary's email recipients by frequency
 
 [Building on No.1](http://regex.danwin.com/slides/#/52) or use the file you've created: `ex3/hilary-email-recipients.txt`
 
