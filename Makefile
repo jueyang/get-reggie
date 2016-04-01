@@ -1,4 +1,4 @@
-all: prep download unzipped txt
+all: prep download txt
 
 prep:
 	brew update
@@ -6,18 +6,20 @@ prep:
 	brew cask install pdftotext
 	brew install ack
 
-download:
-	curl "http://graphics.wsj.com/hillary-clinton-email-documents/zips/HRC_Email_296.zip" -o "HRC_Email_296.zip"
-
-unzipped: HRC_Email_296.zip
+ex2: pdf-sources
 	mkdir $@
-	unzip -d $@ $<
-	touch $@
+	mkdir $</flint
+	curl "somcsprod2govm001.usgovcloudapp.net/files/snyder emails.pdf" -o $</flint
+	for file in $</flint/*.pdf; do pdftotext $$file; done
+	for file in $</flint/*.txt; do mv $$file $@/$$(basename "$$file"); done
 
-txt: unzipped
-	mkdir $@
-	for file in $</*; do pdftotext $$file; done
-	for file in $</*.txt; do mv $$file $@/$$(basename "$$file"); done
+ex3: pdf-sources
+	mkdir $</hilary
+	curl "http://graphics.wsj.com/hillary-clinton-email-documents/zips/HRC_Email_296.zip" -o $</hilary/"HRC_Email_296.zip"
+	unzip -d $</hilary $</hilary/HRC_Email_296.zip
+	for file in $</hilary/*.pdf; do pdftotext $$file; done
+	for file in $</hilary/*.txt; do mv $$file $@/$$(basename "$$file"); done
 
 clear:
-	rm -rf unzipped text
+	rm -rf pdf-sources/*.txt
+	rm -rf pdf-sources/hilary
