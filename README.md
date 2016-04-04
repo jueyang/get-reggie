@@ -4,9 +4,9 @@ Your text editor (Sublime) can only handle files up to a certain size. Command l
 
 ## Sample data
 
-ex1. Jeb Bush emails
-ex2. Flint water emails in the `/pdf` directory
-ex3. One batch of Hilary Clinton's emails
+- ex1. Jeb Bush emails
+- ex2. Flint water emails in the `/pdf` directory
+- ex3. One batch of Hilary Clinton's emails
 
 ## Prep
 
@@ -16,10 +16,6 @@ Once the script is finished you will have installed the command-line tool that w
 
 - `pdftotext`
 - `ack`
-
-## What is `ack`
-
-A command-line file pattern searcher that is fast and optimized in a lot of ways. See [why ack](http://beyondgrep.com/why-ack/).
 
 ## Command line 102
 
@@ -74,6 +70,8 @@ How many incidents under each type?
 - `sort lead-request-type.csv | uniq -c > lead-type-count.csv`
 
 ## Time for `ack`
+
+`ack` is a command-line file pattern searcher that is fast and optimized in a lot of ways. See [why ack](http://beyondgrep.com/why-ack/).
 
 Remember how you tried to get all the phone numbers from Jeb's email? You did something like this in Sublime:
 
